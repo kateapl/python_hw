@@ -11,16 +11,14 @@ Examples:
 """
 from typing import List
 
-
 def find_maximal_subarray_sum(nums: List[int], k: int) -> int:
-    result = nums[0]
-
-    while k >= 1:
-        for i in range(len(nums) - k + 1):
-            tem = 0
-            for j in range(k):
-                tem = tem + nums[i + j]
-            if result < tem:
-                result = tem
-        k = k - 1
-    return result
+    max = nums[0]
+    for i in range(len(nums)):
+        board = 0
+        sum = 0
+        while ((i + board < len(nums)) and (board < k)):
+            sum += nums[i+board]
+            if max < sum:
+                max = sum
+            board += 1
+    return max

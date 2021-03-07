@@ -6,26 +6,14 @@ Given four lists A, B, C, D of integer values,
 
 We guarantee, that all A, B, C, D have same length of N where 0 ≤ N ≤ 1000.
 """
-from typing import Dict, List
+from typing import List
+from itertools import product
 
 
 def check_sum_of_four(a: List[int], b: List[int], c: List[int], d: List[int]) -> int:
-    length = len(a)
+    com = list(product(a, b, c, d))
     result = 0
-    sumab: Dict[int, int] = {}
-
-    for i in range(length):
-        for j in range(length):
-            tem = a[i] + b[j]
-            if tem in sumab:
-                sumab[tem] += 1
-                print(sumab)
-            else:
-                sumab[tem] = 1
-
-    for i in range(length):
-        for j in range(length):
-            tem = c[i] + d[j]
-            if -tem in sumab:
-                result += sumab[-tem]
+    for cell in com:
+        if cell[0] + cell[1] + cell[2] + cell[3] == 0:
+            result += 1
     return result

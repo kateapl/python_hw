@@ -10,7 +10,6 @@ from homework1.task02 import check_fibonacci
     [
         (
             [
-                0,
                 1,
                 1,
                 2,
@@ -34,7 +33,8 @@ from homework1.task02 import check_fibonacci
             ],
             True,
         ),
-        ([0, 1, 1, 2, 4], False),
+        ([1, 1, 2, 4], False),
+        ([1], True),
     ],
 )
 def test_fibonacci(value: Sequence[int], expected_result: bool):

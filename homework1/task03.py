@@ -18,11 +18,8 @@ from typing import Tuple
 
 def find_maximum_and_minimum(file_name: str) -> Tuple[int, int]:
     values = []
-    with open(file_name) as fi:
+    with open(file_name, 'r') as fi:
         for line in fi:
             values.append(int(line))
 
-    min_element = min(values)
-    max_element = max(values)
-    res = (min_element, max_element)
-    return res
+    return min(values), max(values)

@@ -10,30 +10,26 @@ from typing import Sequence
 
 
 def check_fibonacci(data: Sequence[int]) -> bool:
-    fib = [
-        0,
-        1,
-        1,
-        2,
-        3,
-        5,
-        8,
-        13,
-        21,
-        34,
-        55,
-        89,
-        144,
-        233,
-        377,
-        610,
-        987,
-        1597,
-        2584,
-        4181,
-        6765,
-    ]
-    seq_len = len(data)
-    if fib[:seq_len] == data:
+
+    if(len(data) == 0):
+        return False
+    if (len(data) == 1):
+        if data[0] == 1:
+            return True
+    if (len(data) == 2):
+        if data == [1, 1]:
+            return True
+
+    fib = [1, 1]
+    prew = cur = 1
+
+    for i in range(len(data) - 2):
+        tmp = prew + cur
+        fib.append(tmp)
+        prew = cur
+        cur = tmp
+        print(tmp)
+
+    if fib == data:
         return True
     return False
