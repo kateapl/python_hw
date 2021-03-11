@@ -19,10 +19,17 @@ assert val_1 is val_2
 
 """
 
+import pickle
 from collections import Callable
-from functools import lru_cache
 
 
-@lru_cache(maxsize=32)
 def cache(func: Callable) -> Callable:
-    return func
+    cachedict = dict()
+
+    def cachefunc(*args):
+        hash = pickle.dumps(args)
+        if hash not in cachedict:
+            cachedict[hash] = func(*args)
+        return cachedict[hash]
+
+    return cachefunc
