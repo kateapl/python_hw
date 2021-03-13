@@ -23,6 +23,4 @@ def is_armstrong(number: int) -> bool:
     snumber = str(number)
     l = len(snumber)
     result = [int(digit) ** l for digit in snumber]
-    if sum(result) != number:
-        return False
-    return True
+    return sum(result) == number

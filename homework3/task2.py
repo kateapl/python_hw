@@ -30,14 +30,15 @@ def slow_calculate(value):
     return sum(struct.unpack("<" + "B" * len(data), data))
 
 
-if __name__ == "__main__":
+def main():
     start = timer()
     with Pool(processes=60) as pool:
         ar = pool.map(slow_calculate, range(500))
         sum = 0
         for i in range(500):
             sum += ar[i]
-        print("total =")
-        print(sum)
-        print(timer() - start)
-        assert timer() - start < 60
+        return timer() - start
+
+
+if __name__ == "__main__":
+    main()

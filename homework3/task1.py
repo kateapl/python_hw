@@ -32,16 +32,17 @@ from collections import Callable
 def cache(times: int):
     def wrapper(func: Callable):
         cachedict = dict()
+        times_called = 0
 
         def cachefunc(*args):
             hash = pickle.dumps(args)
             if hash not in cachedict:
-                time = 0
-                cachedict[hash] = func(*args), time
-            else:
-                cachedict[hash][1] += 1
-            if cachedict[hash][1] == times:
+                cachedict[hash] = func(*args)
+            nonlocal times_called
+            times_called += 1
+            if times_called == times:
                 del cachedict[hash]
+                times_called = 0
             else:
                 return cachedict[hash]
 
