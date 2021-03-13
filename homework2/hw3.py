@@ -19,14 +19,8 @@ from typing import Any, List
 
 
 def combinations(*args: List[Any]) -> List[List]:
-    arglist = list(chain(args))
-    print(arglist)
-    result = []
-    for l in arglist:
-        if arglist.index(l) != len(arglist) - 1:
-            result.append(list(product(l, *arglist[arglist.index(l) + 1 :])))
-    print(list(chain(*result)))
-    res = list(chain(*result))
-    list_of_lists = [list(elem) for elem in res]
 
-    return list_of_lists
+    result = [[]]
+    for a in args:
+        result = [x + [y] for x in result for y in a]
+    return result

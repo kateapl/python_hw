@@ -10,16 +10,16 @@ import pytest
         (
             "homework2/test/1.txt",
             [
-                "ausf\\u00fchren",
                 "Betrachtung",
                 "vorgebahnte",
-                "gefa\\u00dft",
-                "\\u00fcber",
-                "bedenkli-",
+                "ausführen",
+                "bedenkli",
                 "verbirgt",
                 "vielmehr",
-                "Ausflug",
                 "Waldgang",
+                "Ausflug",
+                "sondern",
+                "gefaßt",
             ],
         ),
         ("homework2/test/empty.txt", []),
@@ -43,7 +43,7 @@ def test_count_punctuation_chars():
 
     actual_result = hw1.count_punctuation_chars("homework2/test/1.txt")
 
-    assert actual_result == 5
+    assert actual_result == 8
 
 
 def test_count_non_ascii_chars():
@@ -57,4 +57,4 @@ def test_get_most_common_non_ascii_char():
 
     actual_result = hw1.get_most_common_non_ascii_char("homework2/test/1.txt")
 
-    assert actual_result == "\\u00fc"
+    assert actual_result == "ü"

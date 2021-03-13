@@ -22,7 +22,7 @@ from typing import List, Tuple
 
 def major_and_minor_elem(inp: List) -> Tuple[int, int]:
     counter = {}
-    for i in range(len(inp)):
-        for el in inp:
-            counter[el] = counter.get(el, 0) + 1
+    inpset = list(set(inp))
+    for i in range(len(inpset)):
+        counter[inpset[i]] = inp.count(inpset[i])
     return max(counter, key=counter.get), min(counter, key=counter.get)
