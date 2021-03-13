@@ -18,7 +18,6 @@ def test_cache():
 
     expected = 5
     actual = f(5)
-    print(f(5))
     assert expected == actual
 
 
