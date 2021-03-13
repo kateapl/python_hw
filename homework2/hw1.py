@@ -50,7 +50,6 @@ def get_longest_diverse_words(file_path: str) -> List[str]:
     else:
         for i in listdict:
             result.append(i[0])
-    print(result)
     return result
 
 
