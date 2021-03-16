@@ -2,6 +2,7 @@ from unittest import TestCase
 from unittest.mock import Mock, patch
 
 import homework4.task2 as hw2
+import pytest
 
 
 class TestFunc(TestCase):
@@ -11,18 +12,10 @@ class TestFunc(TestCase):
 
 
 def test_wrong():
-    try:
+    with pytest.raises(ValueError):
         hw2.count_dots_on_i("homework4")
-    except ValueError:
-        actual_result = ValueError
-
-    assert actual_result == ValueError
 
 
 def test_empty():
-    try:
+    with pytest.raises(ValueError):
         hw2.count_dots_on_i("")
-    except ValueError:
-        actual_result = ValueError
-
-    assert actual_result == ValueError

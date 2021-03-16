@@ -29,13 +29,12 @@ from urllib.request import urlopen
 
 
 def count_dots_on_i(url: str) -> int:
-    icount = 0
     lines = read_url(url)
-    icount += lines.count("i")
+    icount = lines.count("i")
     return icount
 
 
-def read_url(url: str):
+def read_url(url: str) -> str:
     try:
         with urlopen(url) as html:
             bytehtml = html.read()

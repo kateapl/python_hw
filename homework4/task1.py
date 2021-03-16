@@ -34,7 +34,7 @@ def read_magic_number(path: str) -> bool:
     except FileNotFoundError:
         raise ValueError()
     try:
-        float(line)
+        number = float(line)
     except ValueError:
         raise ValueError()
-    return float(line) >= 1.0 and 3.0 - float(line) > 0.0001
+    return number >= 1.0 and 3.0 - number > 0.0001

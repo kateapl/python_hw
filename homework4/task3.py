@@ -26,7 +26,7 @@ You will learn:
 import sys
 
 
-def my_precious_logger(text: str):
+def my_precious_logger(text: str) -> None:
     if text.startswith("error"):
         print(text, file=sys.stderr)
     else:

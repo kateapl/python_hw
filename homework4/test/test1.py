@@ -18,27 +18,15 @@ def test_read_magic_number(file: str, expected_result: bool):
 
 
 def test_empty_file():
-    try:
+    with pytest.raises(ValueError):
         hw1.read_magic_number("homework4/test/empty.txt")
-    except ValueError:
-        actual_result = ValueError
-
-    assert actual_result == ValueError
 
 
 def test_text_file():
-    try:
+    with pytest.raises(ValueError):
         hw1.read_magic_number("homework4/test/nan.txt")
-    except ValueError:
-        actual_result = ValueError
-
-    assert actual_result == ValueError
 
 
 def test_not_existing_file():
-    try:
+    with pytest.raises(ValueError):
         hw1.read_magic_number("homework4/test/wrong.txt")
-    except ValueError:
-        actual_result = ValueError
-
-    assert actual_result == ValueError
