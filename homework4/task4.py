@@ -9,19 +9,19 @@ That how first steps for the instruction may look like:
  - Clone the repository "python_hw"
  - Checkout branch hw4
  - Open terminal
- - Enter python3 -m pytest -v --doctest-modules homework4\task4.py
-
-
->>> fizzbuzz(5)
-['1', '2', 'fizz', '4', 'buzz']
-
->>> fizzbuzz(15)
-['1', '2', 'fizz', '4', 'buzz', 'fizz', '7', '8', 'fizz', 'buzz', '11', 'fizz', '13', '14', 'fizzbuzz']
+ - Enter 'python3 -m pytest -v --doctest-modules homework4\task4.py'
 """
 from typing import List
 
 
 def fizzbuzz(n: int) -> List[str]:
+    """
+    >>> fizzbuzz(5)
+    ['1', '2', 'fizz', '4', 'buzz']
+
+    >>> fizzbuzz(15)
+    ['1', '2', 'fizz', '4', 'buzz', 'fizz', '7', '8', 'fizz', 'buzz', '11', 'fizz', '13', '14', 'fizzbuzz']
+    """
     fb = []
     for i in range(1, n + 1):
         if i % 3 == 0 and i % 5 == 0:
@@ -39,3 +39,4 @@ if __name__ == "__main__":
     import doctest
 
     doctest.testmod()
+
