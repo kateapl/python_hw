@@ -67,11 +67,12 @@ class Student:
         self.first_name = first_name
         self.last_name = last_name
 
-    def do_homework(self, hw: Homework) -> Homework:
+    def do_homework(self, hw: Homework) -> Optional[Homework]:
         if hw.is_active():
             return hw
         else:
             print('You are late')
+            return None
 
 
 if __name__ == '__main__':
