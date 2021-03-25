@@ -21,8 +21,8 @@ def test_homework_created_without_teacher_object():
 
 def test_homework_late():
     hw = hw1.Teacher.create_homework("late", 0)
+    student = hw1.Student("Jon", "Snow")
     with pytest.raises(hw1.DeadlineError):
-        student = hw1.Student("Jon", "Snow")
         student.do_homework(hw, "something")
 
 
@@ -31,17 +31,16 @@ def test_homework_deadline_is_negative():
         hw = hw1.Teacher.create_homework("late", -1)
 
 
-def test_create_function_from_method_and_use_it():
+def test_create_function_from_object_and_use_it():
     teacher = hw1.Teacher("Daniil", "Shadrin")
-    create_homework_too = teacher.create_homework
-    oop_homework = create_homework_too("create 2 simple classes", 5)
+    oop_homework = teacher.create_homework("create 2 simple classes", 5)
     assert (oop_homework.deadline, oop_homework.text) == (
         datetime.timedelta(days=5),
         "create 2 simple classes",
     )
 
 
-def test_AttributeError_in_HomeworkResult():
+def test_attribute_error_in_homework_result():
     student = hw1.Student("Jon", "Snow")
     hw = 1
     solution = "You know nothing"

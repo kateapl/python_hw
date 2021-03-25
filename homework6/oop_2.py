@@ -77,7 +77,7 @@ class Homework:
 
 
 class Student(Person):
-    def do_homework(self, hw: Homework, solution: str) -> Optional["HomeworkResult"]:
+    def do_homework(self, hw: Homework, solution: str) -> "HomeworkResult":
         if hw.is_active():
             result = HomeworkResult(hw, solution, self)
             return result
@@ -111,7 +111,7 @@ class Teacher(Person):
             return False
 
     @classmethod
-    def reset_results(cls, homework: Homework = None) -> None:
+    def reset_results(cls, homework:  Optional[Homework]):
         if homework:
             del cls.homework_done[homework]
         else:
