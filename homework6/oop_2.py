@@ -111,7 +111,7 @@ class Teacher(Person):
             return False
 
     @classmethod
-    def reset_results(cls, homework: Homework = None):
+    def reset_results(cls, homework: Homework = None) -> None:
         if homework:
             del cls.homework_done[homework]
         else:
