@@ -59,12 +59,10 @@ def check_diagonals(board: List[List]) -> Optional[str]:
 def tic_tac_toe_checker(board: List[List]) -> str:
     possibilities = [check_rows(board), check_columns(board), check_diagonals(board)]
     count = Counter(possibilities)
-    print(count["x"])
-    print(count["o"])
-    b = 0
+    blanks = 0
     for row in board:
-        b += row.count("-")
-    if not count["x"] and not count["o"] and b:
+        blanks += row.count("-")
+    if not count["x"] and not count["o"] and blanks:
         return "unfinished!"
     elif count["x"] > count["o"]:
         return "x wins!"

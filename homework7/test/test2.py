@@ -3,20 +3,20 @@ import pytest
 
 
 def test_one_backspace():
-    assert hw2.backspace_compare("ab#c", "ad#c") is True
+    assert hw2.backspace_compare("ab#c", "ad#c")
 
 
 def test_two_backspace():
-    assert hw2.backspace_compare("a##c", "#a#c") is True
+    assert hw2.backspace_compare("a##c", "#a#c")
 
 
 def test_false():
-    assert hw2.backspace_compare("a#c", "b") is False
+    assert not hw2.backspace_compare("a#c", "b")
 
 
 def test_empty():
-    assert hw2.backspace_compare("", "") is True
+    assert hw2.backspace_compare("", "")
 
 
 def test_equal():
-    assert hw2.backspace_compare("dancing queen", "dancing queens#") is True
+    assert hw2.backspace_compare("dancing queen", "dancing queens#")

@@ -22,21 +22,17 @@ Examples:
 
 def backspace_compare(first: str, second: str):
     s1 = [
-        ""
-        if first.index(char) == first.find("#", first.index(char))
-        or first.index(char) == first.find("#", first.index(char)) - 1
+        "" if char == "#" or first.index(char) == first.find("#", first.index(char)) - 1
+        # I left this condition because first[first.index(char) + 1] == '#' gives an IndexError
         else char
         for char in first
     ]
     s2 = [
         ""
-        if second.index(char) == second.find("#", second.index(char))
-        or second.index(char) == second.find("#", second.index(char)) - 1
+        if char == "#" or second.index(char) == second.find("#", second.index(char)) - 1
         else char
         for char in second
     ]
-    s1 = "".join(map(str, s1))
-    s2 = "".join(map(str, s2))
-    print(s1)
-    print(s2)
+    s1 = "".join(s1)
+    s2 = "".join(s2)
     return s1 == s2
