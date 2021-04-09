@@ -38,7 +38,7 @@ class KeyValueStorage:
                     raise ValueError
 
     # to access attributes and methods through . notation
-    def __getattr__(self, attrname):
+    def __getattr__(self, attrname) -> Union[int, str]:
         if attrname in self.storage and attrname not in self.__dict__:
             try:
                 int(self.storage[attrname])
@@ -48,7 +48,7 @@ class KeyValueStorage:
                 return int(self.storage[attrname])
 
     # for access collection _items_ through ['key'] notation
-    def __getitem__(self, key):
+    def __getitem__(self, key) -> Union[int, str]:
         if key in self.storage and key not in self.__dict__:
             try:
                 int(self.storage[key])
