@@ -22,37 +22,35 @@
 # In case when value cannot be assigned to
 # an attribute (for example when there's a line `1=something`) ValueError should be raised.
 # File size is expected to be small, you are permitted to read it entirely into memory.
+from typing import Union
 
 
 class KeyValueStorage:
+    storage = {}
+
     def __init__(self, path: str):
         with open(path, "r") as fi:
-            nums = fi.read().splitlines()
-            self.storage = {num.split("=")[0]: num.split("=")[1] for num in nums}
-            for key in self.storage.keys():
+            for line in fi:
+                kv = line.split("=")
+                print(kv)
                 try:
-                    int(key)
+                    int(kv[0])
                 except ValueError:
-                    pass
+                    try:
+                        self.storage[kv[0]] = int(kv[1])
+                    except ValueError:
+                        self.storage[kv[0]] = kv[1].strip("\n")
                 else:
-                    raise ValueError
+                    raise ValueError()
 
     # to access attributes and methods through . notation
     def __getattr__(self, attrname) -> Union[int, str]:
-        if attrname in self.storage and attrname not in self.__dict__:
-            try:
-                int(self.storage[attrname])
-            except ValueError:
-                return self.storage[attrname]
-            else:
-                return int(self.storage[attrname])
+        value = self.storage.get(attrname, None)
+        if value is not None:
+            return value
 
     # for access collection _items_ through ['key'] notation
-    def __getitem__(self, key) -> Union[int, str]:
-        if key in self.storage and key not in self.__dict__:
-            try:
-                int(self.storage[key])
-            except ValueError:
-                return self.storage[key]
-            else:
-                return int(self.storage[key])
+    def __getitem__(self, key: str) -> Union[int, str]:
+        value = self.storage.get(key, None)
+        if value is not None:
+            return value

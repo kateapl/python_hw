@@ -13,7 +13,7 @@ def test_getitem():
     presidents = TableData(
         database_name="homework8\example.sqlite", table_name="presidents"
     )
-    assert presidents["Yeltsin"] == ["Yeltsin", 999, "Russia"]
+    assert presidents["Yeltsin"] == [("Yeltsin", 999, "Russia")]
 
 
 def test_exist():

@@ -65,40 +65,46 @@ class TableData:
         self.database = database_name
         self.update_db()
 
-    def update_db(self):
+    def update_db(self) -> None:
         """method for updating database"""
         self.connection = sqlite3.connect(self.database)
         self.cursor = self.connection.cursor()
         self.cursor.execute("SELECT * FROM " + self.table)
 
-    def __len__(self):
+    def __len__(self) -> int:
         """method for len() notation, give current amount of rows in presidents table in database"""
         self.update_db()
         self.cursor.execute("select count(*) from " + self.table)
         data = self.cursor.fetchone()
         return data[0]
 
-    def __getitem__(self, key):
+    def __getitem__(self, key) -> list:
         """method for access collection _items_ through ['key'] notation"""
         self.update_db()
-        self.cursor.execute(
-            "SELECT * from presidents where name=:name", {"name": "Yeltsin"}
+        run = self.cursor.execute(
+            "SELECT * from presidents where name=:name", {"name": key}
         )
-        data = self.cursor.fetchall()
-        return list(chain(*data))
+        data = []
+        for line in run:
+            data.append(line)
+        return data
 
-    def __contains__(self, item):
+    def __contains__(self, item) -> bool:
         """method for in notation, return if item with same name exists in table"""
         self.update_db()
-        self.cursor.execute("SELECT * FROM " + self.table)
-        data = self.cursor.fetchall()
-        return item in list(chain(*data))
+        run = self.cursor.execute("SELECT * FROM " + self.table)
+        data = []
+        for line in run:
+            data += line
+        return item in data
 
-    def __iter__(self):
+    def __iter__(self) -> iter:
         """method for iteration protocol"""
         self.update_db()
-        self.cursor.execute("SELECT * FROM " + self.table)
-        data = self.cursor.fetchall()
+        run = self.cursor.execute("SELECT * FROM " + self.table)
+        data = []
+        for line in run:
+            data.append(line)
         return iter(data)
 
 
