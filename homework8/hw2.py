@@ -60,7 +60,7 @@ from itertools import chain
 
 
 class TableData:
-    def __init__(self, database_name, table_name):
+    def __init__(self, database_name, table_name) -> None:
         self.table = table_name
         self.database = database_name
         self.update_db()
