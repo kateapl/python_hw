@@ -93,10 +93,10 @@ class TableData:
         """method for in notation, return if item with same name exists in table"""
         self.update_db()
         run = self.cursor.execute("SELECT * FROM " + self.table)
-        data = []
         for line in run:
-            data += line
-        return item in data
+            if item in line:
+                return True
+        return False
 
     def __iter__(self) -> iter:
         """method for iteration protocol"""
