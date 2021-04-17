@@ -1,12 +1,12 @@
 import os
 
 import pytest
-from homework9.hw2 import supressor, supressor_gen
+from homework9.hw2 import Supressor, supressor_gen
 
 
 def test_index_error():
     try:
-        with supressor(IndexError):
+        with Supressor(IndexError):
             raise IndexError
     except IndexError:
         res = 1
@@ -18,7 +18,7 @@ def test_index_error():
 def test_list_index():
     somelist = [2, 3]
     try:
-        with supressor(IndexError):
+        with Supressor(IndexError):
             somelist[2]
     except IndexError:
         res = 1
@@ -30,7 +30,7 @@ def test_list_index():
 def test_list():
     somelist = [2, 3]
     try:
-        with supressor(IndexError):
+        with Supressor(IndexError):
             somelist[1]
     except IndexError:
         res = 1

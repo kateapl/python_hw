@@ -11,14 +11,14 @@ Do it both ways: as a class and as a generator.
 from contextlib import contextmanager
 
 
-class supressor:
-    def __init__(self, exception):
+class Supressor:
+    def __init__(self, exception) -> None:
         self.exception = exception
 
-    def __enter__(self):
+    def __enter__(self) -> None:
         pass
 
-    def __exit__(self, exc_type, exc_value, traceback):
+    def __exit__(self, exc_type, exc_value, traceback) -> bool:
         return isinstance(exc_value, self.exception)
 
 
