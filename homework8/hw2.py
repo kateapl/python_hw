@@ -102,10 +102,7 @@ class TableData:
         """method for iteration protocol"""
         self.update_db()
         run = self.cursor.execute("SELECT * FROM " + self.table)
-        data = []
-        for line in run:
-            data.append(line)
-        return iter(data)
+        return iter(run)
 
 
 if __name__ == "__main__":
