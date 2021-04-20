@@ -53,7 +53,7 @@ def find_PE(bs: BeautifulSoup) -> str:
             )
 
 
-def get_latest_price(soup, dollar_cource):
+def get_latest_price(soup, dollar_cource) -> list:
     rows = soup.findAll("tr")
     price_list = []
     for row in rows:
@@ -69,7 +69,7 @@ def get_latest_price(soup, dollar_cource):
     return price_list
 
 
-def get_growth(soup):
+def get_growth(soup) -> list:
     rows = soup.findAll("span")
     growth = []
     count = 0
