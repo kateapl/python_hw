@@ -9,6 +9,7 @@ class ColorsEnum(metaclass=SimplifiedEnum):
 class SizesEnum(metaclass=SimplifiedEnum):
     __keys = ("XL", "L", "M", "S", "XS")
 
+
 def test_colors():
     assert ColorsEnum.RED == "RED"
 
@@ -16,7 +17,9 @@ def test_colors():
 def test_size():
     assert SizesEnum.XL == "XL"
 
+
 def test_wrong():
     with pytest.raises(ValueError):
+
         class SomeEnum(metaclass=SimplifiedEnum):
             __some = ("XL", "L", "M", "S", "XS")
