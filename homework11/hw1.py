@@ -37,15 +37,10 @@ assert SizesEnum.XL == "XL"
 
 class SimplifiedEnum(type):
     def __new__(cls, name, bases, dct):
-        print(dct)
-        for key in dct.keys():
-            if key.endswith("__keys"):
-                newkey = "__keys"
-                dct[newkey] = set(dct[key])
-                del dct[key]
-                cls_instance = super().__new__(cls, name, bases, dct)
-                return cls_instance
-        raise ValueError("need __keys attr")
+        dct["__keys"] = set(dct[f"_{name}__keys"])
+        del dct[f"_{name}__keys"]
+        cls_instance = super().__new__(cls, name, bases, dct)
+        return cls_instance
 
     # to access attributes and methods through . notation
     def __getattr__(self, attrname) -> str:

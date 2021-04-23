@@ -19,7 +19,7 @@ def test_size():
 
 
 def test_wrong():
-    with pytest.raises(ValueError):
+    with pytest.raises(KeyError):
 
         class SomeEnum(metaclass=SimplifiedEnum):
             __some = ("XL", "L", "M", "S", "XS")
