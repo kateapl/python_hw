@@ -36,12 +36,14 @@ class KeyValueStorage:
                 try:
                     int(kv[0])
                 except ValueError:
-                    try:
-                        self.storage[kv[0]] = int(kv[1])
-                    except ValueError:
-                        self.storage[kv[0]] = kv[1].strip("\n")
+                    pass
                 else:
                     raise ValueError()
+                #if value is int, set int, else set string
+                try:
+                    self.storage[kv[0]] = int(kv[1])
+                except ValueError:
+                    self.storage[kv[0]] = kv[1].strip("\n")
 
     # to access attributes and methods through . notation
     def __getattr__(self, attrname) -> Union[int, str]:
