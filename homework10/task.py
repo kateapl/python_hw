@@ -31,7 +31,6 @@ import datetime
 import json
 
 import aiohttp
-import requests
 from bs4 import BeautifulSoup
 
 
@@ -120,46 +119,14 @@ def count_stonks(bs: BeautifulSoup) -> float:
     return res
 
 
-async def main() -> None:
-    stocks = "https://markets.businessinsider.com/index/components/s&p_500"
-    page = requests.get(stocks)
-
-    now = datetime.datetime.now()
-    yesterday = now - datetime.timedelta(days=1)
-    dollar = f"http://www.cbr.ru/scripts/XML_dynamic.asp?date_req1={yesterday.strftime('%d/%m/%Y')}&date_req2={now.strftime('%d/%m/%Y')}&VAL_NM_RQ=R01235"
-    dollar_page = requests.get(dollar)
-    cource = dollar_page.text.split("<Value>")[1]
-    dollar_cource = float(cource.split("</Value>")[0].replace(",", "."))
-    print(dollar_cource)
-
-    soup = BeautifulSoup(page.text, "html.parser")
-    table = soup.find("table", class_="table table-small")
-    companies = table.findAll("a")
-    references = []
-    company_name = []
-    growth = get_growth(table)
-    latest_prices = get_latest_price(soup, dollar_cource)
-
-    ref = "https://markets.businessinsider.com"
-    for company in companies:
-        references.append(ref + str(company["href"]))
-        company_name.append(company["title"])
-
-    tasks = [asyncio.create_task(fetch_response(url)) for url in references]
-    await asyncio.gather(*tasks)
-    codes = []
-    PE = []
-    stonks = []
-    for task in tasks:
-        tasksoup = BeautifulSoup(task.result(), "html.parser")
-        PE.append(find_PE(tasksoup))
-        codes.append(
-            str(tasksoup.find("title"))
-            .split(sep=" ", maxsplit=1)[0]
-            .replace("<title>", "")
-        )
-        stonks.append(count_stonks(tasksoup))
-
+def form_info(
+    company_name: list,
+    codes: list,
+    PE: list,
+    growth: list,
+    stonks: list,
+    latest_prices: list,
+) -> None:
     company_list = []
     for i, company in enumerate(company_name):
         company_struct = {}
@@ -188,6 +155,55 @@ async def main() -> None:
     sort_list = sorted(company_list, key=lambda elem: elem["profit"], reverse=True)
     with open("high_profit.json", "w") as file:
         json.dump(sort_list[:10], file)
+
+
+async def main() -> None:
+    stocks = "https://markets.businessinsider.com/index/components/s&p_500"
+
+    now = datetime.datetime.now()
+    yesterday = now - datetime.timedelta(days=1)
+    dollar = f"http://www.cbr.ru/scripts/XML_dynamic.asp?date_req1={yesterday.strftime('%d/%m/%Y')}&date_req2={now.strftime('%d/%m/%Y')}&VAL_NM_RQ=R01235"
+    dollar_page = asyncio.create_task(fetch_response(dollar))
+    await dollar_page
+    cource = dollar_page.result().split("<Value>")[1]
+    dollar_cource = float(cource.split("</Value>")[0].replace(",", "."))
+
+    pages = [asyncio.create_task(fetch_response(stocks+"?p="+str(i+1))) for i in range(10)]
+    await asyncio.gather(*pages)
+    companies = []
+    growth = []
+    latest_prices = []
+    for page in pages:
+        soup = BeautifulSoup(page.result(), "html.parser")
+        table = soup.find("table", class_="table table-small")
+        companies += table.findAll("a")
+
+        growth += get_growth(table)
+        latest_prices += get_latest_price(soup, dollar_cource)
+
+    references = []
+    company_name = []
+
+    ref = "https://markets.businessinsider.com"
+    for company in companies:
+        references.append(ref + str(company["href"]))
+        company_name.append(company["title"])
+
+    tasks = [asyncio.create_task(fetch_response(url)) for url in references]
+    await asyncio.gather(*tasks)
+    codes = []
+    PE = []
+    stonks = []
+    for task in tasks:
+        tasksoup = BeautifulSoup(task.result(), "html.parser")
+        PE.append(find_PE(tasksoup))
+        codes.append(
+            str(tasksoup.find("title"))
+            .split(sep=" ", maxsplit=1)[0]
+            .replace("<title>", "")
+        )
+        stonks.append(count_stonks(tasksoup))
+    form_info(company_name, codes, PE, growth, stonks, latest_prices)
 
 
 if __name__ == "__main__":
