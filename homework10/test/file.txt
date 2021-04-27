@@ -1,0 +1,31 @@
+			<tr>
+						<td >
+<a href="/stocks/mmm-stock" title="3M">3M</a>						</td>
+						<td class="text-right">
+198.89<br />
+197.42						</td>
+						<td class="text-right">
+197.98<br />
+199.67						</td>
+						<td >
+<div class="image_icon_price_green"></div>						</td>
+						<td class="text-right">
+<span class="colorGreen">1.47</span><br />
+<span class="colorGreen">0.74%</span>						</td>
+						<td >
+<div style="width:0px;" class="performanceBarNegative"></div>						</td>
+						<td class="text-right">
+<span>07:43 PM</span><span style="display:none" rel="localdatetime" format="hh:mm tt">04/16/2021 07:43:47 PM UTC-0400</span><br />
+17.04.2021						</td>
+						<td class="text-right">
+<span class="colorGreen">31.18</span><br />
+<span class="colorGreen">18.84%</span>						</td>
+						<td class="text-right">
+<span class="colorGreen">27.66</span><br />
+<span class="colorGreen">16.36%</span>						</td>
+						<td class="text-right">
+<span class="colorGreen">51.49</span><br />
+<span class="colorGreen">35.46%</span>						</td>
+						<td class="text-right">
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="lazy" data-original="https://pproxy.markets.businessinsider.com/cst/MarketsInsiderV2/Share/chart.aspx?instruments=13,1405105,13,814&style=miniweiss5025&period=OneYear&timezone=Eastern Standard Time" alt="3M" onclick="window.location.href= '/chart/mmm'" style='cursor:pointer' title="3M 1-year Chart"/>						</td>
+				</tr>
