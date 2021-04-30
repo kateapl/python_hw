@@ -15,10 +15,17 @@
 #
 # Utilize ORM capabilities as much as possible, avoiding executing raw SQL queries.
 import datetime
-from collections import defaultdict
-from typing import Optional
+import sqlite3
 
-from sqlalchemy import Column, ForeignKey, Integer, MetaData, String, create_engine
+from sqlalchemy import (
+    Column,
+    DateTime,
+    ForeignKey,
+    Integer,
+    MetaData,
+    String,
+    create_engine,
+)
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import backref, relationship, sessionmaker
 
@@ -39,30 +46,30 @@ Base = declarative_base()
 
 
 class Homework(Base):
-    __tablename__ = "homework"
+    __tablename__ = "homeworks"
     homework_id = Column(Integer, primary_key=True)
     task_text = Column(String)
-    created = datetime.datetime.now()
+    created_date = Column(DateTime, default=datetime.datetime.now)
     deadline = Column(Integer)
 
 
 class HomeworkResult(Base):
-    __tablename__ = "homework_result"
+    __tablename__ = "homework_results"
     result_id = Column(Integer, primary_key=True)
     solution = Column(String)
-    homework = Column(Integer, ForeignKey("homework.homework_id"))
-    author = Column(Integer, ForeignKey("student.student_id"))
+    homework = Column(Integer, ForeignKey("homeworks.homework_id"))
+    author = Column(Integer, ForeignKey("students.student_id"))
 
 
 class Student(Base):
-    __tablename__ = "student"
+    __tablename__ = "students"
     student_id = Column(Integer, primary_key=True)
     first_name = Column(String)
     last_name = Column(String)
 
 
 class Teacher(Base):
-    __tablename__ = "teacher"
+    __tablename__ = "teachers"
     teacher_id = Column(Integer, primary_key=True)
     first_name = Column(String)
     last_name = Column(String)
