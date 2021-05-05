@@ -46,9 +46,9 @@ class Order:
         return self.price - self.price * self.discount
 
 
-def morning_discount() -> Union[int, float]:
+def morning_discount() -> float:
     return 0.5
 
 
-def elder_discount() -> Union[int, float]:
+def elder_discount() -> float:
     return 0.9
